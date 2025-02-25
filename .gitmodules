@@ -1,0 +1,3 @@
+[submodule "BookSnap-properties"]
+	path = BookSnap-properties
+	url = https://github.com/KTB-BookSnap/BookSnap-properties.git
