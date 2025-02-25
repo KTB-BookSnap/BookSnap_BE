@@ -1,0 +1,13 @@
+spring.profiles.default: local  #배포시 prod 변경
+
+---
+
+spring.config.activate.on-profile: local
+
+---
+
+spring.config.activate.on-profile: dev
+
+---
+
+spring.config.activate.on-profile: prod
