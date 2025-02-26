@@ -24,12 +24,25 @@ repositories {
 }
 
 dependencies {
+	//JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Spring-Web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// H2 - TODO: DB 연결 시 삭제
+	runtimeOnly 'com.h2database:h2'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
