@@ -36,7 +36,7 @@ public class CardService {
             return cardRepository.existsByBook(book);
         }
         //책이 없을 때
-        bookService.createBook(cardRequestDto.getTitle(), cardRequestDto.getSummary(), cardRequestDto.getThumbnailUrl());
+        bookService.createBook(cardRequestDto.getTitle(), cardRequestDto.getSummary());
         return false;
     }
 

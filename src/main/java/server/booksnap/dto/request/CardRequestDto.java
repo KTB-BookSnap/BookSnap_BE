@@ -13,13 +13,11 @@ public record CardRequestDto(
 ) implements Serializable {
     public static CardRequestDto of(
             final String title,
-            final String summary,
-            final String thumbnailUrl
+            final String summary
     ) {
         return CardRequestDto.builder()
                 .title(title)
                 .summary(summary)
-                .thumbnailUrl(thumbnailUrl)
                 .build();
     }
 
