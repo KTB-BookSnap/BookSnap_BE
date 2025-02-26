@@ -30,4 +30,21 @@ public class BookService {
                 .map(Book::getTitle)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
     }
+
+    public void createBook(String title, String summary, String thumbnailUrl) {
+        bookRepository.save(Book.builder()
+                .title(title)
+                .summary(summary)
+                .thumbnailUrl(thumbnailUrl)
+                .build());
+    }
+
+    public boolean isBookExist(String title) {
+        return bookRepository.existsByTitle(title);
+    }
+
+    public Book getBookByTitle(String title) {
+        return bookRepository.findByTitle(title)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
+    }
 }
