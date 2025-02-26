@@ -34,6 +34,7 @@ public enum ErrorCode {
 
     //404
     NOT_FOUND_USER(40402, HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
+    NOT_FOUND_BOOK(40403, HttpStatus.NOT_FOUND, "책이 존재하지 않습니다"),
 
     //500
     INTERNAL_SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다");
