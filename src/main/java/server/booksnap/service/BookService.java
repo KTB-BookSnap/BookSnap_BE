@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import server.booksnap.domain.Book;
 import server.booksnap.dto.response.BookResponseDto;
+import server.booksnap.exception.CommonException;
+import server.booksnap.exception.ErrorCode;
 import server.booksnap.repository.BookRepository;
 
 @Service
@@ -21,5 +23,11 @@ public class BookService {
                         book.getTitle(),
                         book.getThumbnailUrl()
                 )).collect(Collectors.toList());
+    }
+
+    public String getBookTitle(Long bookId) {
+        return bookRepository.findById(bookId)
+                .map(Book::getTitle)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
     }
 }
