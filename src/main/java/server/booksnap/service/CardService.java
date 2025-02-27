@@ -41,19 +41,12 @@ public class CardService {
         return false;
     }
 
-    @Transactional
     public void createCard(CardRequestDto cardRequestDto) {
         if (isCardExist(cardRequestDto)) {
             return;
         }
         Book book = bookService.getBookByTitle(cardRequestDto.getTitle());
 
-//        webClientService.generateCards(book.getId());
-
-        cardRepository.save(Card.builder()
-                .book(book)
-//                .imageUrl(cardRequestDto.getImageUrl())
-//                .phrase(cardRequestDto.getPhrase())
-                .build());
+        webClientService.generateCards(book.getId());
     }
 }
