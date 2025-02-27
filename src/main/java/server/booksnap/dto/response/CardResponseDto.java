@@ -7,18 +7,18 @@ import lombok.Builder;
 @Builder
 public record CardResponseDto(
         @JsonProperty("title") String title,
-        @JsonProperty("imageUrl") String imageUrl,
-        @JsonProperty("phrase") String phrase
+        @JsonProperty("image") String image,
+        @JsonProperty("text") String text
 ) implements Serializable {
     public static CardResponseDto of(
             final String title,
-            final String imageUrl,
-            final String phrase
+            final String image,
+            final String text
     ) {
         return CardResponseDto.builder()
                 .title(title)
-                .imageUrl(imageUrl)
-                .phrase(phrase)
+                .image(image)
+                .text(text)
                 .build();
     }
 }
