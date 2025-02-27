@@ -1,5 +1,6 @@
 package server.booksnap.service;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class BookService {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
     }
 
+    @Transactional
     public void createBook(String title, String summary) {
         bookRepository.save(Book.builder()
                 .title(title)

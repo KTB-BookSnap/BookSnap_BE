@@ -26,7 +26,7 @@ public class WebClientService {
     public void generateCards(Long bookId) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
-        List<CardResponseDto> responseList = webClient.post().uri("http://43.203.252.67/input_story")
+        List<CardResponseDto> responseList = webClient.post().uri("http://43.203.252.67:8000/input_story")
                 .bodyValue(CardRequestDto.of(
                         book.getTitle(),
                         book.getSummary()))
