@@ -31,11 +31,10 @@ public class BookService {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
     }
 
-    public void createBook(String title, String summary, String thumbnailUrl) {
+    public void createBook(String title, String summary) {
         bookRepository.save(Book.builder()
                 .title(title)
                 .summary(summary)
-                .thumbnailUrl(thumbnailUrl)
                 .build());
     }
 
