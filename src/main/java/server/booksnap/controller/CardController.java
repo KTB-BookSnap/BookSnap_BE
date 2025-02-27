@@ -14,7 +14,7 @@ import server.booksnap.service.CardService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bookCards")
+@RequestMapping("/api/bookCards")
 public class CardController {
     private final CardService cardService;
 

@@ -9,7 +9,7 @@ import server.booksnap.service.BookService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
 
