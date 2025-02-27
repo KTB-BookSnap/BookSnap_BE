@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -31,6 +32,7 @@ public class Book {
     private String summary;
 
     @Column(name = "thumbnail_url")
+    @Setter
     private String thumbnailUrl;
 
     @Builder
