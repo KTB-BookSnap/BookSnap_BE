@@ -18,3 +18,16 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+cloud:
+  aws:
+    s3:
+      bucket: s3-booksnap-test
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: ${IAM_ACCESS_KEY}
+      secret-key: ${IAM_SECRET_KEY}
