@@ -5,10 +5,10 @@ import java.io.Serializable;
 import lombok.Builder;
 
 @Builder
-public record CardResponseDto (
+public record CardResponseDto(
         @JsonProperty("title") String title,
-    @JsonProperty("imageUrl") String imageUrl,
-    @JsonProperty("phrase") String phrase
+        @JsonProperty("imageUrl") String imageUrl,
+        @JsonProperty("phrase") String phrase
 ) implements Serializable {
     public static CardResponseDto of(
             final String title,

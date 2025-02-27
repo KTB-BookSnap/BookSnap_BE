@@ -2,6 +2,7 @@ package server.booksnap.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,5 +53,11 @@ public class GlobalExceptionHandler {
     public ResponseDto<?> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         log.error("handleDataIntegrityViolationException() in GlobalExceptionHandler : {}", e.getMessage());
         return ResponseDto.fail(new CommonException(ErrorCode.DATA_INTEGRITY_VIOLATION));
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseDto<?> handleDuplicateKeyException(DuplicateKeyException e) {
+        log.error("handleDuplicateKeyException() in GlobalExceptionHandler : {}", e.getMessage());
+        return ResponseDto.fail(new CommonException(ErrorCode.DUPLICATE_ENTRY));
     }
 }

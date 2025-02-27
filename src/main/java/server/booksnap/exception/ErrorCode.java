@@ -37,7 +37,9 @@ public enum ErrorCode {
     NOT_FOUND_BOOK(40403, HttpStatus.NOT_FOUND, "책이 존재하지 않습니다"),
     NOT_FOUND_CARD(40404, HttpStatus.NOT_FOUND, "카드가 존재하지 않습니다"),
 
-
+    //409
+    DUPLICATE_ENTRY(40900, HttpStatus.CONFLICT, "이미 존재하는 엔티티입니다."),
+    DUPLICATED_BOOK(40901, HttpStatus.CONFLICT, "이미 존재하는 책입니다."),
     //500
     INTERNAL_SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다");
 
