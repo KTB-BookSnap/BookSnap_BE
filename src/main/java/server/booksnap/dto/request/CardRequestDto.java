@@ -8,8 +8,7 @@ import lombok.Getter;
 @Builder
 public record CardRequestDto(
         @JsonProperty("title") String title,
-        @JsonProperty("summary") String summary,
-        @JsonProperty("thumbnailUrl") String thumbnailUrl
+        @JsonProperty("summary") String summary
 ) implements Serializable {
     public static CardRequestDto of(
             final String title,
@@ -27,9 +26,5 @@ public record CardRequestDto(
 
     public String getSummary() {
         return this.summary;
-    }
-
-    public String getThumbnailUrl() {
-        return this.thumbnailUrl;
     }
 }

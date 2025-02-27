@@ -17,6 +17,7 @@ public class CardService {
 
     private final BookService bookService;
     private final CardRepository cardRepository;
+    private final WebClientService webClientService;
 
     @Transactional(readOnly = true)
     public List<CardResponseDto> getCardList(Long bookId) {
@@ -47,7 +48,7 @@ public class CardService {
         }
         Book book = bookService.getBookByTitle(cardRequestDto.getTitle());
 
-        //TODO: imageUrl, phrase 외부에 요청하는 서비스 호출 필요
+        webClientService.generateCards(book.getId());
 
         cardRepository.save(Card.builder()
                 .book(book)
