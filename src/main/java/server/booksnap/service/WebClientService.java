@@ -48,6 +48,12 @@ public class WebClientService {
                         .build()).toList();
 
         cardRepository.saveAll(list);
+
+        // 카드가 존재하면 첫 번째 카드의 imageUrl을 책의 thumbnailUrl로 지정
+        if (!list.isEmpty()) {
+            book.setThumbnailUrl(list.get(0).getImageUrl());
+        }
+
         bookRepository.save(book);
     }
 }
