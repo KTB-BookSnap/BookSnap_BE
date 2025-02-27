@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -25,7 +26,8 @@ public class Book {
     @Column(name = "title", unique = true)
     private String title;
 
-    @Column(name = "summary")
+    @Lob // 긴 문자열 저장을 위한 어노테이션
+    @Column(name = "summary", columnDefinition = "TEXT") // DB에서 TEXT 타입 사용 (선택적)
     private String summary;
 
     @Column(name = "thumbnail_url")
