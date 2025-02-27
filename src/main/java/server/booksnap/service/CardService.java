@@ -9,6 +9,8 @@ import server.booksnap.domain.Book;
 import server.booksnap.domain.Card;
 import server.booksnap.dto.request.CardRequestDto;
 import server.booksnap.dto.response.CardResponseDto;
+import server.booksnap.exception.CommonException;
+import server.booksnap.exception.ErrorCode;
 import server.booksnap.repository.CardRepository;
 
 @Service
@@ -29,6 +31,9 @@ public class CardService {
                 )).collect(Collectors.toList());
     }
 
+    /**
+     * 카드가 이미 존재하는지 확인
+     */
     public boolean isCardExist(CardRequestDto cardRequestDto) {
         boolean isBookExist = bookService.isBookExist(cardRequestDto.getTitle());
         //책이 이미 있을 때
@@ -41,19 +46,12 @@ public class CardService {
         return false;
     }
 
-    @Transactional
     public void createCard(CardRequestDto cardRequestDto) {
         if (isCardExist(cardRequestDto)) {
-            return;
+            throw new CommonException(ErrorCode.DUPLICATED_BOOK);
         }
         Book book = bookService.getBookByTitle(cardRequestDto.getTitle());
 
-//        webClientService.generateCards(book.getId());
-
-        cardRepository.save(Card.builder()
-                .book(book)
-//                .imageUrl(cardRequestDto.getImageUrl())
-//                .phrase(cardRequestDto.getPhrase())
-                .build());
+        webClientService.generateCards(book.getId());
     }
 }
