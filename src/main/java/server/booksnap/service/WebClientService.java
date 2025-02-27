@@ -2,9 +2,12 @@ package server.booksnap.service;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,6 +23,7 @@ import server.booksnap.repository.CardRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WebClientService {
 
     private final BookRepository bookRepository;
@@ -31,20 +35,22 @@ public class WebClientService {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
 
-        List<CardResponseDto> responseList = webClient.post()
-                .uri("http://43.203.252.67:7500/input_story")
-                .contentType(MediaType.APPLICATION_JSON) // JSON 요청 설정
-                .bodyValue(AIRequestDto.of(book.getSummary()))
+        Map<String, Map<String, CardResponseDto>> responseMap = webClient.post()
+                .uri("http://43.203.252.67:8000/input_story")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(AIRequestDto.of(book.getSummary()))  // AIRequestDto는 필요에 맞게 설정
                 .retrieve()
-                .bodyToFlux(CardResponseDto.class)
-                .collectList()
+                .bodyToMono(new ParameterizedTypeReference<Map<String, Map<String, CardResponseDto>>>() {})
                 .block();
+
+        Map<String, CardResponseDto> cardMap = responseMap.get("result");
+        List<CardResponseDto> responseList = cardMap.values().stream().toList();
 
         List<Card> list = responseList.stream().map(
                 card -> Card.builder()
                         .book(book)
-                        .phrase(card.phrase())
-                        .imageUrl(card.imageUrl())
+                        .phrase(card.text())
+                        .imageUrl(card.image())
                         .build()).toList();
 
         cardRepository.saveAll(list);
