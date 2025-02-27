@@ -1,5 +1,6 @@
 package server.booksnap.service;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,12 +26,13 @@ public class WebClientService {
     private final CardRepository cardRepository;
     private final WebClient webClient;
 
+    @Transactional
     public void generateCards(Long bookId) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_BOOK));
 
         List<CardResponseDto> responseList = webClient.post()
-                .uri("http://43.203.252.67:8000/input_story")
+                .uri("http://43.203.252.67:7500/input_story")
                 .contentType(MediaType.APPLICATION_JSON) // JSON 요청 설정
                 .bodyValue(AIRequestDto.of(book.getSummary()))
                 .retrieve()
