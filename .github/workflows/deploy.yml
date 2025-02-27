@@ -2,7 +2,7 @@ name: deploy-actions
 
 on:
   push:
-    branches: [ "deploy/river" ]
+    branches: [ "main" ]
 
 jobs:
   ci:
