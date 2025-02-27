@@ -32,7 +32,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://booksnap.site", "http://localhost:3000")); // 모든 도메인 허용
+        configuration.setAllowedOrigins(List.of("http://booksnap.site", "http://localhost:3000", "http://www.booksnap.site")); // 모든 도메인 허용
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // 크리덴셜 허용 (프론트에서 쿠키 필요시)
