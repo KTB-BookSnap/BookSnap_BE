@@ -18,7 +18,7 @@ jobs:
       - name: Update Submodules
         run: |
           git submodule sync
-          git submodule update --init --recursive --remote
+          git submodule update --init --recursive
 
       - name: Copy application-prod.yml
         run: cp BookSnap-properties/application-prod.yml src/main/resources/
