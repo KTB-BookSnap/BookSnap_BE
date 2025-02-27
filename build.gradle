@@ -36,6 +36,9 @@ dependencies {
 	// Spring Web Client
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	// Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
