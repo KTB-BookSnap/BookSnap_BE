@@ -17,31 +17,27 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .httpBasic().disable() // HTTP 기본 인증 비활성화
-                .csrf().disable() // CSRF 보호 비활성화
-                .cors().configurationSource(corsConfigurationSource()) // CORS 설정 활성화
-                .and()
-                .authorizeRequests() // 요청에 대한 보안 검사 시작
-                .requestMatchers("/*").permitAll() // 인증과 관련된 경로는 허용 (로그인, 회원가입 등)
-                .anyRequest().authenticated() // 그 외의 모든 요청은 인증 필요
-                .and()
-                .sessionManagement()
-                .and()
+                .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 적용
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 상태 관리
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/books/**", "/bookCards/**", "/").permitAll() // 특정 경로는 인증 없이 접근 가능
+                        .anyRequest().authenticated() // 나머지는 인증 필요
+                )
                 .build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*")); // 허용할 도메인 설정
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 허용할 HTTP 메소드 설정
-        configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 허용
-        configuration.setAllowCredentials(true); // 크리덴셜 허용
+        configuration.setAllowedOrigins(List.of("*")); // 모든 도메인 허용
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true); // 크리덴셜 허용 (프론트에서 쿠키 필요시)
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // 모든 경로에 대해 설정 적용
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
