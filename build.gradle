@@ -49,6 +49,8 @@ dependencies {
 	// H2 - TODO: DB 연결 시 삭제
 	runtimeOnly 'com.h2database:h2'
 
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // 적절한 버전을 지정
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
