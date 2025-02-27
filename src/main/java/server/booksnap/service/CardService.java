@@ -48,7 +48,7 @@ public class CardService {
         }
         Book book = bookService.getBookByTitle(cardRequestDto.getTitle());
 
-        webClientService.generateCards(book.getId());
+//        webClientService.generateCards(book.getId());
 
         cardRepository.save(Card.builder()
                 .book(book)
